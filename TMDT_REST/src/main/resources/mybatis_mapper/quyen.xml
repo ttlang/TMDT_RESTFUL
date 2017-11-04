@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<mapper namespace="com.spring.mapper.RoleMapper">
+			<resultMap type="com.spring.domain.Role" id="role_result_1">
+				<id column="MA_QUYEN" property="roleID" javaType="java.lang.String"/>
+				<result column="TEN_QUYEN" property="roleName" javaType="java.lang.String"/>
+				<result column="MO_TA" property="roleDescription" javaType="java.lang.String"/>
+			</resultMap>
+			
+			
+			
+			<!-- Truy vấn dữ liệu -->
+			<select id="getAllRole" resultMap="role_result_1" parameterType="java.util.List">
+				SELECT * FROM QUYEN
+			</select>		
+		
+		</mapper>

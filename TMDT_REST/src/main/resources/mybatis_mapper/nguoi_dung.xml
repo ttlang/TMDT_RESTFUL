@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<mapper namespace="com.spring.mapper.UserMapper">
+		
+			<!-- Mapper cho người dùng -->
+			
+			<resultMap type="com.spring.domain.User"  id="user_resutl_1">
+				<id column="MA_NGUOIDUNG" javaType="java.lang.String" property="userID"/>
+				<result column="TEN_NGUOIDUNG" javaType="java.lang.String" property="userName"/>
+				<result column="NGAY_DANGDKY" javaType="java.sql.Date" typeHandler="com.spring.config.OffsetDateTimeTypeHandler" property="registrationDate"/>
+				<result column="EMAIL" javaType="java.lang.String" property="email"/>
+				<result column="ANH_DAI_DIEN" javaType="java.lang.String" property="avatar"/>
+				<result column="MAT_KHAU" javaType="java.lang.String" property="password"/>
+				<result column="DIEM" javaType="java.lang.Integer" property="score"/>
+				<result column="TRANG_THAI" javaType="java.lang.Integer" property="status"/>
+				<result column="DIA_CHI" javaType="java.lang.String" property="address"/>
+				<result column="SDT" javaType="java.lang.String" property="phoneNumber"/>
+				
+			</resultMap>
+			
+			
+			
+			
+			
+			<!-- Câu lệnh truy vấn -->
+			
+			
+			<select id="getAllUser" resultType="java.util.List" resultMap="user_resutl_1">
+					SELECT * FROM NGUOI_DUNG
+			</select>
+			
+			
+			<select id="getUserByUserID" parameterType="java.lang.String" resultMap="user_resutl_1">
+				SELECT * FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG = #{userID}
+			
+			</select>			
+		
+		</mapper>
