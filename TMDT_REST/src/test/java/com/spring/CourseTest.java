@@ -24,6 +24,5 @@ public class CourseTest {
 	public void testGetAllCourse() {
 		assertEquals(1, courseRepository.getAllCourse().size());
 		LOGGER.info(courseRepository.getAllCourse().get(0).getAuthor().getUserName());
-		System.err.println(courseRepository.getAllCourse().get(0).toString());
 	}
 }

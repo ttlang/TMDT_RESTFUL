@@ -1,3 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		<mapper namespace="com.spring.mapper.ChuongMucMapper"></mapper>
+		<mapper namespace="com.spring.mapper.ChapterMapper">
+			<resultMap type="com.spring.domain.Chapter" id="chapter_result_1">
+				<id column="MA_CHUONGMUC" javaType="java.lang.String" property="chapterID"/>
+				<result column="MA_KHOAHOC" javaType="java.lang.String" property="courseID"/>
+				<result column="TIEU_DE" javaType="java.lang.String" property="chapterTitle"/>
+				<result column="NOI_DUNG" javaType="java.lang.String" property="chapterContent"/>
+				<result column="TOM_TAT" javaType="java.lang.String" property="chapterSummary"/>
+				<collection  column="MA_CHUONGMUC" javaType="java.util.List" property="listOfLession" select="getLessionBychapterID"></collection>
+			
+			</resultMap>
+		
+			<!-- Map cho quan hệ giữa chương chứa nhiều bài học -->	
+				<resultMap type="com.spring.domain.Lesson" id="lesson_result_1">
+				<id column="MA_BAIHOC" javaType="java.lang.String" property="lessonID"/>
+				<result column="TIEU_DE" javaType="java.lang.String"  property="lessonTitle"/>
+				<result column="NOI_DUNG" javaType="java.lang.String" property="lessonContent"/>
+				<result column="MA_CHUONGMUC" javaType="java.lang.String" property="chapterID"/>
+				<result column="LUOT_XEM" javaType="java.lang.Integer" property="views"/>			
+			</resultMap>
+			
+			<select id="getLessonBychapterID" resultMap="lesson_result_1" parameterType="java.lang.String">
+				SELECT B.MA_BAIHOC,B.TIEU_DE,B.NOI_DUNG,B.MA_CHUONGMUC,B.LUOT_XEM FROM BAI_HOC B INNER 
+				JOIN CHUONG_MUC C ON B.MA_CHUONGMUC = C.MA_CHUONGMUC WHERE B.MA_CHUONGMUC=#{chapterID}
+			</select>
+			
+			<!-- Câu lệnh truy vấn -->
+			
+			<select id="getAllChapter" resultMap="chapter_result_1" resultType="java.util.List" >
+				SELECT * FROM CHUONG_MUC
+			</select>
+			<select id="getChapterByChapterID" parameterType="java.lang.String" resultMap="chapter_result_1" >
+				SELECT * FROM CHUONG_MUC C WHERE C.MA_CHUONGMUC=#{chapterID}
+			</select>
+				
+		</mapper>

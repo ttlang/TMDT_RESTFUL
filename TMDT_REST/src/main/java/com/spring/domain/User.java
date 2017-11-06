@@ -36,6 +36,15 @@ public class User {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public User(String userID, String userName, String email, String avatar) {
+		super();
+		this.userID = userID;
+		this.userName = userName;
+		this.email = email;
+		this.avatar = avatar;
+	}
+
 
 	public User() {
 	}
