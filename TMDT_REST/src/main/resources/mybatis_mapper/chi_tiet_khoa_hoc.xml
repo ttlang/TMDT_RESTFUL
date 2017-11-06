@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.mapper.CourseDetail">
-	<resultMap type="com.spring.domain." id=""></resultMap>
-</mapper>
+     	<mapper namespace="com.spring.mapper.CourseDetailMapper">
+			<resultMap type="com.spring.domain.CourseDetail" id="coursedetail_result_1">
+				<id column="MA_KHOAHOC" javaType="java.lang.String" property="courseID"/>
+				<result column="MO_TA_CHI_TIET" javaType="java.lang.String"/>
+			</resultMap>
+			
+			<!-- Câu lệnh truy vấn cho CHI_TIET_KHOA_HOC -->
+			
+			
+			
+			<select id="getAllCourseDetail" resultType="java.util.List" resultMap="coursedetail_result_1">
+				SELECT * FROM CHI_TIET_KHOA_HOC
+			</select>
+			
+		</mapper>

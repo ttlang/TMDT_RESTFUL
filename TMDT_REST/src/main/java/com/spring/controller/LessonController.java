@@ -8,21 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.domain.Course;
-import com.spring.service.CourseService;
+import com.spring.domain.Lesson;
+import com.spring.service.LessonService;
 
 @RestController
-public class CoureController {
+public class LessonController {
 	@Autowired
-	private CourseService courseService;
+	private LessonService lessonService;
 
-	@GetMapping(value = "/course", produces = "application/json")
-	public ResponseEntity<List<Course>> getAllCourse() {
-		List<Course> result = courseService.getAllCourse();
+	@GetMapping(value = "/lesson", produces = "application/json")
+	public ResponseEntity<List<Lesson>> getAllLession() {
+		List<Lesson> result = lessonService.getAllLesson();
 		if (result.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<List<Course>>(result, HttpStatus.OK);
+			return new ResponseEntity<List<Lesson>>(result, HttpStatus.OK);
 		}
 	}
 }

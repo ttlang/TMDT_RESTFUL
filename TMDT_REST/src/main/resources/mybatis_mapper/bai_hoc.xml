@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		<mapper namespace="com.spring.mapper.LessionMapper">
+		<mapper namespace="com.spring.mapper.LessonMapper">
+			<resultMap type="com.spring.domain.Lesson" id="lesson_result_1">
+				<id column="MA_BAIHOC" javaType="java.lang.String" property="lessonID"/>
+				<result column="TIEU_DE" javaType="java.lang.String"  property="lessonTitle"/>
+				<result column="NOI_DUNG" javaType="java.lang.String" property="lessonContent"/>
+				<result column="MA_CHUONGMUC" javaType="java.lang.String" property="chapterID"/>
+				<result column="LUOT_XEM" javaType="java.lang.Integer" property="views"/>
+				<collection column="MA_BAIHOC" property="listOfComments" select="getCommentByLessonID"></collection>	
+			</resultMap>
+			
+			
+			<!-- Mapper cho comment -->
+		
+		<resultMap type="com.spring.domain.Comment" id="comment_result_1">
+			<id column="MA_BINHLUAN" javaType="java.lang.String" property="commentID"/>
+			<result column="MA_BAIHOC" javaType="java.lang.String" property="courseID"/>
+			<result column="NOI_DUNG" javaType="java.lang.String" property="commentContent"/>
+			<result column="NGAY_BINHLUAN" typeHandler="com.spring.config.OffsetDateTimeTypeHandler" property="commentDate"/>
+			<result column="TRANG_THAI" javaType="java.lang.Integer" property="commentStatut"/>
+			<association column="MA_NGUOIDUNG" property="userCommment" select="getUserByUserID" ></association>
+		</resultMap>
+		
+		
+		<!-- Mapper cho người dùng để lấy dữ liệu trong comment -->
+		<resultMap type="com.spring.domain.User"  id="user_resutl_1">
+<!-- 				<id column="MA_NGUOIDUNG" javaType="java.lang.String" property="userID"/> -->
+<!-- 				<result column="TEN_NGUOIDUNG" javaType="java.lang.String" property="userName"/> -->
+<!-- 				<result column="EMAIL" javaType="java.lang.String" property="email"/> -->
+<!-- 				<result column="ANH_DAI_DIEN" javaType="java.lang.String" property="avatar"/> -->
+				<constructor >
+					<idArg column="MA_NGUOIDUNG" javaType="java.lang.String"/>
+					<arg column="TEN_NGUOIDUNG" javaType="java.lang.String"/>
+					<arg  column="EMAIL" javaType="java.lang.String" />
+					<arg column="ANH_DAI_DIEN" javaType="java.lang.String"/>
+				</constructor>
+			</resultMap>
+		
+			<select id="getUserByUserID" parameterType="java.lang.String" resultMap="user_resutl_1">
+				SELECT N.MA_NGUOIDUNG,N.TEN_NGUOIDUNG,N.EMAIL,N.ANH_DAI_DIEN FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG=#{userID}
+			</select>	
+			
+			
+			
+			<select id="getCommentByLessonID" resultMap="comment_result_1" parameterType="java.lang.String">
+			SELECT B.MA_BINHLUAN,B.MA_BAIHOC,B.MA_NGUOIDUNG,B.NOI_DUNG,B.NGAY_BINHLUAN,B.TRANG_THAI 
+			FROM BAI_HOC H INNER JOIN BINH_LUAN B ON H.MA_BAIHOC = B.MA_BAIHOC WHERE H.MA_BAIHOC=#{lessonID}
+			</select>
+			
+			
+			
+			
 			
 		
+		<!-- Câu lệnh truy vấn -->
+		
+		<select id="getAllLesson"  resultType="java.util.List"  resultMap="lesson_result_1" >
+				SELECT * FROM BAI_HOC
+		</select>
+		
+		<select id="getLessonByLessonID" resultMap="lesson_result_1" parameterType="java.lang.String">
+			SELECT * FROM BAI_HOC B WHERE B.MA_BAIHOC =#{lessonID}
+		
+		</select>
+					
 		</mapper>

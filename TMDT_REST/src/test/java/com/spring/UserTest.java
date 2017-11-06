@@ -20,24 +20,21 @@ public class UserTest {
 	UserRepository userRepository;
 	@Autowired
 	UserService userService;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserTest.class);
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserTest.class);
 
 	@Test
 	public void testGetAllNguoiDung() {
-		assertEquals(1,userRepository.getAllUser().size());
+		assertEquals(1, userRepository.getAllUser().size());
 		LOGGER.info(userRepository.getAllUser().get(0).toString());
 	}
 
 	@Test
 	public void getUserByUserID() {
 		LOGGER.info(userRepository.getUserByUserID("ND001").getRegistrationDate().toString());
-		System.err.println(userRepository.getUserByUserID("ND002").getRegistrationDate());
 	}
+
 	@Test
 	public void testGetUser() {
-		System.out.println(	userService.getUserByUserID("ND001"));;
 	}
 }
-	

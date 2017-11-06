@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		<mapper namespace="com.spring.mapper.DinhKemBaiHocMapper"></mapper>
+		<mapper namespace="com.spring.mapper.LessonAttachMapper">
+		<resultMap type="com.spring.domain.LessonAttach" id="lesson_attach_result_1">
+			<id column="MA_DINHKEMBAIHOC" javaType="java.lang.String" property="lessonAttachID"/>
+			<result column="MA_BAIHOC" javaType="java.lang.String" property="lessonID"/>
+			<result column="NOI_DUNG" javaType="java.lang.String" property="lesonAttachContent"/>
+			<result column="NGAY_THEM" typeHandler="com.spring.config.OffsetDateTimeTypeHandler" property="dayAdded"/>
+		</resultMap>
+		<select id="getAllLesonAttach" resultType="java.util.List" resultMap="lesson_attach_result_1">
+				SELECT * FROM DINH_KEM_BAI_HOC
+		</select>		
+				
+		<select id="getLesonAttachByID" resultMap="lesson_attach_result_1" parameterType="java.lang.String" resultType="java.util.List">
+				SELECT * FROM DINH_KEM_BAI_HOC D WHERE D.MA_DINHKEMBAIHOC=#{lessonAttachID} 
+		
+		</select>		
+		</mapper>
