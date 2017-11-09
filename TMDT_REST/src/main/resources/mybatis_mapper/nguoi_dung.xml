@@ -32,7 +32,10 @@
 			
 			<select id="getUserByUserID" parameterType="java.lang.String" resultMap="user_resutl_1">
 				SELECT * FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG = #{userID}
-			
 			</select>			
-		
+			<select id="getUserByEmail" resultMap="user_resutl_1">
+			
+				SELECT * FROM NGUOI_DUNG N WHERE N.EMAIL =#{email}
+			
+			</select>		
 		</mapper>

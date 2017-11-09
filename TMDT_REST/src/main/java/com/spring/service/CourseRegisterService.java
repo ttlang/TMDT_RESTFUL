@@ -1,13 +1,10 @@
-package com.spring.mapper;
+package com.spring.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.spring.domain.CourseRegister;
 
-@Mapper
-public interface CourseRegisterMapper {
+public interface CourseRegisterService {
 	public List<CourseRegister>getAllCourseRegister();
 
 }

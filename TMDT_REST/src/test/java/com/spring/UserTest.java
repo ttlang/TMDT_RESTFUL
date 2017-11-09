@@ -35,6 +35,8 @@ public class UserTest {
 	}
 
 	@Test
-	public void testGetUser() {
+	public void testGetUserByEmail() {
+		LOGGER.info(userRepository.getUserByEmail("lang.tt16@gmail.com").toString());
+		
 	}
 }

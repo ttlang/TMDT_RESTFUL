@@ -1,3 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		<mapper namespace="com.spring.mapper.DangKyKhoaHocMapper"></mapper>
+		<mapper namespace="com.spring.mapper.CourseRegisterMapper">
+			<resultMap type="com.spring.domain.CourseRegister" id="course_register_result_1">
+					<result column="NGAY_DANG_KY" property="registerDate" typeHandler="com.spring.config.OffsetDateTimeTypeHandler"/>			
+					<association column="MA_KHOAHOC" property="course" select="getCourseByID"></association>
+					<association column="MA_NGUOIDUNG" property="userRegister" select="getUserByUserID" ></association>
+			</resultMap>
+			
+			
+			
+			<!-- Map cho course -->
+		<resultMap type="com.spring.domain.Course" id="course_result_1">
+					<id column="MA_KHOAHOC" property="courseID" javaType="java.lang.String"/>
+					<result column="TIEU_DE" property="courseTitle" javaType="java.lang.String"/>
+					<result column="MO_TA" property="courseDescription" javaType="java.lang.String"/>
+					<result column="NGAY_TAO" property="createDate" typeHandler="com.spring.config.OffsetDateTimeTypeHandler"/>
+					<result column="DON_GIA" property="price" javaType="java.lang.Integer"/>
+					<result column="TRANG_THAI" property="statut" javaType="java.lang.Integer"/>
+					<result column="NGAY_DUYET" property="confirmedDate" typeHandler="com.spring.config.OffsetDateTimeTypeHandler"/>
+					<result column="LUOT_TRUY_CAP" property="views" javaType="java.lang.Integer"/>
+					<result column="ANH_DAI_DIEN" property="courseAvatar" javaType="java.lang.String"/>
+					<result column="MA_CHUDE" property="topic" javaType="java.lang.String"/>
+					<result column="CHI_TIET_KHOA_HOC" property="courseDetail" javaType="java.lang.String"/>
+					<association  column="MA_NGUOIDUNG_TAO" property="author" select="getUserByUserID">
+					
+					</association>
+					<association  column="MA_LOAIKHOAHOC" property="courseType" select="getCourseTypeByID">
+					</association>					
+									
+					<association  column="ADMIN_ID_DUYET" property="confirmedBy" select="getUserByUserID">
+					
+					</association>
+					
+			</resultMap>
+			
+			<!-- map cho user -->
+			
+			
+			
+			<resultMap type="com.spring.domain.User"  id="user_resutl_1">
+				<id column="MA_NGUOIDUNG" javaType="java.lang.String" property="userID"/>
+				<result column="TEN_NGUOIDUNG" javaType="java.lang.String" property="userName"/>
+				<result column="NGAY_DANGDKY" typeHandler="com.spring.config.OffsetDateTimeTypeHandler" property="registrationDate"/>
+				<result column="EMAIL" javaType="java.lang.String" property="email"/>
+				<result column="ANH_DAI_DIEN" javaType="java.lang.String" property="avatar"/>
+				<result column="MAT_KHAU" javaType="java.lang.String" property="password"/>
+				<result column="DIEM" javaType="java.lang.Integer" property="score"/>
+				<result column="TRANG_THAI" javaType="java.lang.Integer" property="status"/>
+				<result column="DIA_CHI" javaType="java.lang.String" property="address"/>
+				<result column="SDT" javaType="java.lang.String" property="phoneNumber"/>
+			</resultMap>
+			
+				<select id="getUserByUserID" parameterType="java.lang.String" resultMap="user_resutl_1">
+						SELECT * FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG = #{userID}
+				</select>		
+				
+				<select id="getAllCourseTypeByID" parameterType="java.lang.String" resultMap="course_type_result_1" resultType="com.spring.domain.CourseType">
+						SELECT * FROM LOAI_KHOA_HOC L WHERE L.MA_LOAIKHOHOC =#{courseTypeID}
+				</select>
+				
+				
+				<!-- Map cho loại khóa học -->
+				
+				<resultMap type="com.spring.domain.CourseType" id="course_type_result_1">
+					<id column="MA_LOAIKHOHOC" javaType="java.lang.String" property="courseTypeID" />
+					<result column="TIEU_DE" javaType="java.lang.String" property="courseTitle" />
+					<result column="MO_TA" javaType="java.lang.String" property="courseTile" />
+				</resultMap>
+				
+				<select id="getCourseTypeByID" parameterType="java.lang.String" resultMap="course_type_result_1" resultType="com.spring.domain.CourseType">
+					SELECT * FROM LOAI_KHOA_HOC L WHERE L.MA_LOAIKHOHOC =#{courseTypeID}
+				</select>
+				
+				
+				
+				
+				<select id="getCourseByID" resultMap="course_result_1" parameterType="java.lang.String">
+					SELECT DISTINCT K.* FROM DANG_KY_KHOA_HOC D JOIN KHOA_HOC K ON D.MA_KHOAHOC = K.MA_KHOAHOC WHERE D.MA_KHOAHOC=#{courseID}
+				</select>
+			
+			
+			
+			<!-- Truy vấn dữ liệu -->
+			
+				<select id="getAllCourseRegister" resultMap="course_register_result_1" resultType="java.util.List">
+					SELECT * FROM DANG_KY_KHOA_HOC
+				</select>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</mapper>
