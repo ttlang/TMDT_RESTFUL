@@ -14,6 +14,7 @@
 					<result column="LUOT_TRUY_CAP" property="views" javaType="java.lang.Integer"/>
 					<result column="ANH_DAI_DIEN" property="courseAvatar" javaType="java.lang.String"/>
 					<result column="MA_CHUDE" property="topic" javaType="java.lang.String"/>
+					<result column="CHI_TIET_KHOA_HOC" property="courseDetail" javaType="java.lang.String"/>
 					<association  column="MA_NGUOIDUNG_TAO" property="author" select="getUserByUserID">
 					
 					</association>

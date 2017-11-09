@@ -49,4 +49,25 @@ public class UserRepositoryImp implements UserRepository {
 		}
 		return result;
 	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		SqlSession session = sqlSessionFactory.openSession();
+		UserMapper userMapper = session.getMapper(UserMapper.class);
+		User result = null;
+		try {
+			result = userMapper.getUserByEmail(email);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public int createUser(User user) {
+		return 0;
+	}
+
 }
