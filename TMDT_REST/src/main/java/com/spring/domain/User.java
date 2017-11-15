@@ -1,6 +1,7 @@
 package com.spring.domain;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -21,9 +22,27 @@ public class User {
 	private Integer status;
 	private String address;
 	private String phoneNumber;
+	private List<Role>permission;
+	private OffsetDateTime lastPasswordResetDate;
+
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
+	public User(String userID, String userName, String email, String avatar) {
+		super();
+		this.userID = userID;
+		this.userName = userName;
+		this.email = email;
+		this.avatar = avatar;
+	}
+	
+	
 
 	public User(String userID, String userName, OffsetDateTime registrationDate, String email, String avatar,
-			String password, Integer score, Integer status, String address, String phoneNumber) {
+			String password, Integer score, Integer status, String address, String phoneNumber, List<Role> permission) {
 		super();
 		this.userID = userID;
 		this.userName = userName;
@@ -35,16 +54,26 @@ public class User {
 		this.status = status;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
+		this.permission = permission;
 	}
-	
-	public User(String userID, String userName, String email, String avatar) {
+
+	public User(String userID, String userName, OffsetDateTime registrationDate, String email, String avatar,
+			String password, Integer score, Integer status, String address, String phoneNumber, List<Role> permission,
+			OffsetDateTime lastPasswordResetDate) {
 		super();
 		this.userID = userID;
 		this.userName = userName;
+		this.registrationDate = registrationDate;
 		this.email = email;
 		this.avatar = avatar;
+		this.password = password;
+		this.score = score;
+		this.status = status;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.permission = permission;
+		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
-
 
 	public User() {
 	}
@@ -129,11 +158,33 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
+	
+	public List<Role> getPermission() {
+		return permission;
+	}
+
+	public void setPermission(List<Role> permission) {
+		this.permission = permission;
+	}
+	
+
+	public OffsetDateTime getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(OffsetDateTime lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userID=" + userID + ", userName=" + userName + ", registrationDate=" + registrationDate
 				+ ", email=" + email + ", avatar=" + avatar + ", password=" + password + ", score=" + score
-				+ ", status=" + status + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+				+ ", status=" + status + ", address=" + address + ", phoneNumber=" + phoneNumber + ", permission="
+				+ permission + ", lastPasswordResetDate=" + lastPasswordResetDate + "]";
 	}
+
+
+	
 
 }

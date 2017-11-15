@@ -15,13 +15,25 @@
 				<result column="TRANG_THAI" javaType="java.lang.Integer" property="status"/>
 				<result column="DIA_CHI" javaType="java.lang.String" property="address"/>
 				<result column="SDT" javaType="java.lang.String" property="phoneNumber"/>
-				
+				<result column="THAY_DOI_MAT_KHAU" javaType="java.sql.Date" typeHandler="com.spring.config.OffsetDateTimeTypeHandler" property="lastPasswordResetDate" />
+				<collection property="permission" column="MA_NGUOIDUNG" select="getPermissionByUserID"></collection>
 			</resultMap>
 			
 			
+			<resultMap type="com.spring.domain.Role" id="role_result_1">
+				<id column="MA_QUYEN" property="roleID" javaType="java.lang.String"/>
+				<result column="TEN_QUYEN" property="roleName" javaType="java.lang.String"/>
+				<result column="MO_TA" property="roleDescription" javaType="java.lang.String"/>
+			</resultMap>
 			
-			
-			
+			<select id="getPermissionByUserID" resultMap="role_result_1" parameterType="java.lang.String" resultType="java.util.List">
+						SELECT Q2.MA_QUYEN,Q2.TEN_QUYEN,Q2.MO_TA 
+						FROM QUYEN_TRUY_CAP Q1 JOIN QUYEN Q2 ON Q1.MA_QUYEN = Q2.MA_QUYEN WHERE Q1.MA_NGUOIDUNG=#{userID}
+				</select>
+				
+				
+				
+				
 			<!-- Câu lệnh truy vấn -->
 			
 			
@@ -34,8 +46,10 @@
 				SELECT * FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG = #{userID}
 			</select>			
 			<select id="getUserByEmail" resultMap="user_resutl_1">
-			
 				SELECT * FROM NGUOI_DUNG N WHERE N.EMAIL =#{email}
-			
 			</select>		
+			
+			
+			
+			
 		</mapper>

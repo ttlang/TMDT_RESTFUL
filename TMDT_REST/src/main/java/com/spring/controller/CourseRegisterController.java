@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.domain.CourseRegister;
@@ -16,7 +17,7 @@ public class CourseRegisterController {
 	@Autowired
 	private CourseRegisterService courseRegisterService;
 
-	@GetMapping(value = "/course_register", produces = "application/json")
+	@RequestMapping(value = "/course_register", produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<List<CourseRegister>> getAllCourseRegister() {
 		List<CourseRegister> result = courseRegisterService.getAllCourseRegister();
 		if (result.isEmpty()) {

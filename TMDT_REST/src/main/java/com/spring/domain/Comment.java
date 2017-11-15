@@ -2,20 +2,32 @@ package com.spring.domain;
 
 import java.time.OffsetDateTime;
 
+import org.jsondoc.core.annotation.ApiObject;
+import org.jsondoc.core.annotation.ApiObjectField;
+
 /**
  * <p>
- * Domain class cho table BINH_LUAN
+ * Domain class for table BINH_LUAN
  * </p>
  * 
  * @author ttlang
  *
  */
+
+@ApiObject(name = "Comment", description = "Bình luận người dùng")
 public class Comment {
+
+	@ApiObjectField(name = "commentID", description = "Mã bình luận của người dùng", required = true)
 	private String commentID;
+	@ApiObjectField(name = "courseID", description = " Mã bài học", required = true)
 	private String courseID;
+	@ApiObjectField(name = "userCommment", description = "Thông tin người bình luận", required = true)
 	private User userCommment;
+	@ApiObjectField(name = "commentContent", description = "Nội dung bình luận", required = true)
 	private String commentContent;
+	@ApiObjectField(name = "commentDate", description = "Thời gian bình luận", required = true)
 	private OffsetDateTime commentDate;
+	@ApiObjectField(name = "commentStatut", description = "Trạng thái của bình luận", required = true)
 	private Integer commentStatut;
 
 	public Comment(String commentID, String courseID, User userCommment, String commentContent,
