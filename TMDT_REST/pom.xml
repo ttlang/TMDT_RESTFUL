@@ -61,11 +61,25 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.0</version>
 		</dependency>
-
-
+	<!-- JSONDoc -->
+		<dependency>
+        <groupId>org.jsondoc</groupId>
+        <artifactId>spring-boot-starter-jsondoc</artifactId>
+        <version>1.2.17</version>
+		</dependency>
+		<!-- jsondoc-ui-webjar -->
+	<dependency>
+        <groupId>org.jsondoc</groupId>
+        <artifactId>jsondoc-ui-webjar</artifactId>
+        <version>1.2.17</version>
+</dependency>		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mobile</artifactId>
 		</dependency>
 	</dependencies>
 
