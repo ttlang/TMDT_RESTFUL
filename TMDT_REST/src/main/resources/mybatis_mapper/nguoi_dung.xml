@@ -34,22 +34,60 @@
 				
 				
 				
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<!-- Câu lệnh truy vấn -->
+			
+			
+			
 			
 			
 			<select id="getAllUser" resultType="java.util.List" resultMap="user_resutl_1">
 					SELECT * FROM NGUOI_DUNG
 			</select>
 			
-			
 			<select id="getUserByUserID" parameterType="java.lang.String" resultMap="user_resutl_1">
 				SELECT * FROM NGUOI_DUNG N WHERE N.MA_NGUOIDUNG = #{userID}
 			</select>			
-			<select id="getUserByEmail" resultMap="user_resutl_1">
-				SELECT * FROM NGUOI_DUNG N WHERE N.EMAIL =#{email}
+			<select id="getUserByEmail" resultMap="user_resutl_1" parameterType="java.lang.String">
+				SELECT * FROM NGUOI_DUNG N WHERE N.EMAIL = #{email}
 			</select>		
+			<select id="checkEmailExist" resultType="boolean" parameterType="java.lang.String">
+				SELECT  nguoi_dung_pkg.check_email_is_exitst(#{email}) FROM DUAL
+			</select>
+			
+			<insert  id="saveUser" statementType="CALLABLE"   parameterType="java.util.Map">
+				
+			{CALL  nguoi_dung_pkg.save_nguoi_dung(
+					#{userName,jdbcType=VARCHAR},
+					#{registrationDate,jdbcType=DATE},
+					#{email,jdbcType=VARCHAR},
+					#{avatar,jdbcType=VARCHAR},
+					#{password,jdbcType=VARCHAR},
+					#{address,jdbcType=VARCHAR},
+					#{phoneNumber,jdbcType=VARCHAR},
+					#{result,mode=OUT,jdbcType=INTEGER}
+			)}
+                                            
+			</insert>	
 			
 			
-			
-			
+			 <update id="changeStatusRegister" statementType="CALLABLE" parameterType="java.util.Map">
+			 	{CALL 	NGUOI_DUNG_PKG.change_TRANG_THAI_DANG_KI(#{userID,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=INTEGER})}
+			 </update>
+			 
+			 
+			 <update id="changeUserPassword" statementType="CALLABLE" parameterType="java.util.Map">
+			 	{CALL NGUOI_DUNG_PKG.change_MAT_KHAU(#{userID,jdbcType=VARCHAR},#{newPassword,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=INTEGER})}
+			 </update>
+			 
+			 
 		</mapper>

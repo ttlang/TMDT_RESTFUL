@@ -16,4 +16,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		argumentResolvers.add(new ServletWebArgumentResolverAdapter(new DeviceWebArgumentResolver()));
 		argumentResolvers.add(new SitePreferenceHandlerMethodArgumentResolver());
 	}
+
+	
+
 }

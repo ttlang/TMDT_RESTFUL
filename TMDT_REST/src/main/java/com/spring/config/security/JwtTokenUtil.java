@@ -65,8 +65,19 @@ public class JwtTokenUtil implements Serializable {
 		return claimsResolver.apply(claims);
 	}
 
+	// private Claims getAllClaimsFromToken(String token) {
+	// return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+	// }
+
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+		Claims claims;
+		try {
+			claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+		} catch (Exception e) {
+			e.printStackTrace();
+			claims = null;
+		}
+		return claims;
 	}
 
 	private Boolean isTokenExpired(String token) {
@@ -97,7 +108,7 @@ public class JwtTokenUtil implements Serializable {
 
 	public String generateToken(UserDetails userDetails, Device device) {
 		Map<String, Object> claims = new HashMap<>();
-		return prefix + doGenerateToken(claims, userDetails.getUsername(), generateAudience(device));
+		return prefix+" "+ doGenerateToken(claims, userDetails.getUsername(), generateAudience(device));
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject, String audience) {
@@ -129,10 +140,12 @@ public class JwtTokenUtil implements Serializable {
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		UserPrincipal user = (UserPrincipal) userDetails;
-		final String email = getUsernameFromToken(token);
-		// final Date created = getIssuedAtDateFromToken(token);
+		final String username = getUsernameFromToken(token);
+		final Date created = getIssuedAtDateFromToken(token);
 		// final Date expiration = getExpirationDateFromToken(token);
-		return (email.equals(user.getUsername()) && !isTokenExpired(token));
+		return (username.equals(user.getUsername()) && !isTokenExpired(token)
+				&& !isCreatedBeforeLastPasswordReset(created,
+						Date.from(user.getUser().getLastPasswordResetDate().toInstant())));
 	}
 
 	private Date calculateExpirationDate(Date createdDate) {
