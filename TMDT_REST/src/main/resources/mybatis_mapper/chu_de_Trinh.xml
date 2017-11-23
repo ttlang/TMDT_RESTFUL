@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.TopicTrinhMapper">
+	<resultMap type="TopicTrinh" id="TopicTrinhResult">
+		<id property="id" column="MA_CHUDE"/>
+		<result property="title" column="TIEU_DE"/>
+		<result property="description" column="MO_TA"/>
+		<result property="status" column="TRANG_THAI"/>
+	</resultMap>
+	<select id="TopicTrinhResult">
+		SELECT * FROM CHU_DE
+	</select>
+</mapper>
