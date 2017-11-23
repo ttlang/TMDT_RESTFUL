@@ -69,6 +69,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 	                        "/**/*.js"
 	                ).permitAll()
 	                .antMatchers("/auth").permitAll()
+	                .antMatchers(HttpMethod.POST, "/user").permitAll()
+	                .antMatchers(HttpMethod.PATCH, "/user/register_status/*").permitAll()
+	                .antMatchers(HttpMethod.GET, "/user/token_reset_password").permitAll()
+	                .antMatchers(HttpMethod.POST, "/user/password_reset").permitAll()
 	                .anyRequest().authenticated();
 
 	        // Custom JWT based security filter
@@ -94,6 +98,9 @@ public void configure(WebSecurity web) throws Exception {
             "/**/*.css",
             "/**/*.js"
         );
+    
+//    web.ignoring().antMatchers(HttpMethod.POST, "/user");
+//    web.ignoring().antMatchers(HttpMethod.PATCH, "/user/register_status/**");
     web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
 }
 }
