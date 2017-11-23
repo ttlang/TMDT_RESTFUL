@@ -72,12 +72,24 @@ public class UserController {
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createUser(@RequestBody UserCustom userCustom) {
-		boolean resultOfCreate = userService.saveUser(userCustom.converToUserCustom());
+		boolean resultOfCreate = false;
+		if (userCustom == null) {
+			String msg = "{\"Message\":\"request body is null\"}";
+			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			resultOfCreate = userService.register(userCustom.converToUserCustom()) > 0;
+
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
 		if (resultOfCreate) {
 
-			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+			String msg = "{\"Message\":\"registration success\"}";
+			return new ResponseEntity<>(msg, HttpStatus.ACCEPTED);
 		} else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			String msg = "{\"Message\":\"request body is null\"}";
+			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 
 	}
