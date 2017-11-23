@@ -9,5 +9,9 @@ public interface UserRepository {
 	public User getUserByUserID(String userID);
 	public int createUser(User user);
 	public User getUserByEmail(String email);
+	public boolean checkEmailExist(String email);
+	public int saveUser(User user);
+	public int changeStatusRegister(String userId);
+	public int changePassWord(String userID,String newPassword);
 
 }
