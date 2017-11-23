@@ -1,0 +1,12 @@
+#config jwt
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  prefix: Bearer
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+

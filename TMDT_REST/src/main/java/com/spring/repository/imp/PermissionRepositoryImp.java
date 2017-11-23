@@ -2,7 +2,6 @@ package com.spring.repository.imp;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -23,19 +22,19 @@ public class PermissionRepositoryImp implements PermissionRepository {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<Map<String, Role>> getAllPermission() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<Map<String, Role>> listOfPermission = Collections.emptyList();
+	public List<Role> getPermissionByUserID(String userID) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Role> result = Collections.emptyList();
 		try {
-			PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
-			listOfPermission = permissionMapper.getAllPermission();
+			PermissionMapper permissionMapper = session.getMapper(PermissionMapper.class);
+			result = permissionMapper.getPermissionByUserID(userID);
 
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
+			LOGGER.info(e.getMessage());
 		} finally {
-			sqlSession.close();
+			session.close();
 		}
-		return listOfPermission;
+		return result;
 	}
 
 }

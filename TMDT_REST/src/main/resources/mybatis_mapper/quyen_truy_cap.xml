@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<mapper namespace="com.spring.mapper.PermissionMapper">
-			<resultMap type="java.util.Map" id="permission_result">
-				<association column="MA_NGUOIDUNG" javaType="java.lang.String" property=""/>
-				<association property="" column="MA_QUYEN"  select="getRoleByRoleID"></association>
-			</resultMap>
-			
-			
-			
-			
 			
 			<resultMap type="com.spring.domain.Role" id="role_result_1">
 				<id column="MA_QUYEN" property="roleID" javaType="java.lang.String"/>
@@ -26,11 +18,13 @@
 			<!-- Truy vấn dữ liệu -->
 			
 			
-				<select id="getAllPermission" resultType="java.util.List" resultMap="permission_result">
+				<select id="getAllPermission" resultType="java.util.List" resultMap="role_result_1">
 					SELECT * FROM QUYEN_TRUY_CAP
 				</select>
 			
-			
-			
+				<select id="getPermissionByUserID" resultMap="role_result_1" parameterType="java.lang.String" resultType="java.util.List">
+						SELECT Q2.MA_QUYEN,Q2.TEN_QUYEN,Q2.MO_TA 
+						FROM QUYEN_TRUY_CAP Q1 JOIN QUYEN Q2 ON Q1.MA_QUYEN = Q2.MA_QUYEN WHERE Q1.MA_NGUOIDUNG=#{userID}
+				</select>
 			
 		</mapper>
